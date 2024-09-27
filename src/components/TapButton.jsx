@@ -17,16 +17,6 @@ const TapButton = () => {
     fetchUser();
   }, []);
 
-  // const updateCoins = async (user,newCoins) => {
-  //   if (user) {
-  //     await fetch('/update-coins', {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify({ telegramId: user.telegramId, coins: newCoins }),
-  //     });
-  //   }
-  // };
-
   const handleTap = () => {
     const newCoins = coins + 1;
     setCoins(newCoins);
