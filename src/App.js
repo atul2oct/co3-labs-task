@@ -7,23 +7,23 @@ import TapButton from './components/TapButton'
 const App = () => {
 
 
-  const [username, setUsername] = useState('Atul');
+  const [username, setUsername] = useState('');
 console.log('username',username)
-  // useEffect(() => {
-  //   // Retrieve Telegram username and log it to console
-  //   if (window.Telegram?.WebApp) {
-  //     const tg = window.Telegram.WebApp;
-  //     const user = tg.initDataUnsafe?.user;
+  useEffect(() => {
+    // Retrieve Telegram username and log it to console
+    if (window.Telegram?.WebApp) {
+      const tg = window.Telegram.WebApp;
+      const user = tg.initDataUnsafe?.user;
 
-  //     if (user?.username) {
-  //       setUsername(user.username);
-  //       console.log(`Telegram Username: ${user.username}`);
-  //     } else {
-  //       setUsername(null); // Set to null if no username is found
-  //       console.log('No Telegram username detected');
-  //     }
-  //   }
-  // }, []);
+      if (user?.username) {
+        setUsername(user.username);
+        console.log(`Telegram Username: ${user.username}`);
+      } else {
+        setUsername(null); // Set to null if no username is found
+        console.log('No Telegram username detected');
+      }
+    }
+  }, []);
 
   if (!username) {
     return (
