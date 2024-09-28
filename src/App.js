@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import "./App.css"
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 // import Home from './pages/Home'
 import TapButton from './components/TapButton'
 
 const App = () => {
 
 
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState('Atul');
+console.log('username',username)
+  // useEffect(() => {
+  //   // Retrieve Telegram username and log it to console
+  //   if (window.Telegram?.WebApp) {
+  //     const tg = window.Telegram.WebApp;
+  //     const user = tg.initDataUnsafe?.user;
 
-  useEffect(() => {
-    // Retrieve Telegram username and log it to console
-    if (window.Telegram?.WebApp) {
-      const tg = window.Telegram.WebApp;
-      const user = tg.initDataUnsafe?.user;
-
-      if (user?.username) {
-        setUsername(user.username);
-        console.log(`Telegram Username: ${user.username}`);
-      } else {
-        setUsername(null); // Set to null if no username is found
-        console.log('No Telegram username detected');
-      }
-    }
-  }, []);
+  //     if (user?.username) {
+  //       setUsername(user.username);
+  //       console.log(`Telegram Username: ${user.username}`);
+  //     } else {
+  //       setUsername(null); // Set to null if no username is found
+  //       console.log('No Telegram username detected');
+  //     }
+  //   }
+  // }, []);
 
   if (!username) {
     return (
@@ -46,14 +46,10 @@ const App = () => {
   return (
     <div className='w-screen min-h-screen bg-richblack-900 flex flex-col justify-center items-center font-inter text-white'>
 
-    <Router>
         <Routes>
             <Route path='/' element={<TapButton user={username} />} />
-          {/* <Route path="/" element={<HomePage />} >
-            <Route path='/boost' element={<Boost user={username} />} />
-          </Route> */}
         </Routes>
-      </Router>
+
     </div>
   )
 }
