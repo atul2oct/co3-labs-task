@@ -59,40 +59,7 @@ const TapButton = ({user}) => {
         }
     };
 
-  // Fetch user info from Telegram API or your server when component mounts
   // Fetch user info when component mounts
-  useEffect(() => {
-
-    console.log("telegram object",window.Telegram?.WebApp);
-    
-    
-    const fetchUser = async () => {
-      try {
-        // Retrieve telegramId from Telegram WebApp initialization
-        // const telegramId = window.Telegram?.WebApp?.initDataUnsafe?.user?.id;
-        const telegramId = '63968'
-        // Use window.Telegram.WebApp.initDataUnsafe.user.id to retrieve the telegramId from the Telegram Web App.
-        
-        if (!telegramId) {
-          console.error('Telegram ID not found');
-          return;
-        }
-
-        // Send telegramId to your backend to fetch user info
-        const response = await getUser(telegramId);
-        // Send this telegramId as a query parameter in your API request (/get-user-info?telegramId=<ID>).
-        console.log(response)
-        // setUser(response?.telegramId || response?.user?.telegramId);
-        // setCoins(response?.coins || response?.user?.coins); // Set initial coin balance
-
-      } catch (error) {
-        console.error('Error fetching user:', error);
-      }
-    };
-
-    // fetchUser();
-  }, []);
-
   useEffect(() => {
     fetchUserData();
 
