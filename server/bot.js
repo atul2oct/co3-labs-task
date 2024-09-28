@@ -12,62 +12,18 @@ const bot = new TelegramBot(token, {polling:true});
 
 
 // Handle the '/start' command
-// bot.onText(/\/start/, async (msg) => {
-//   const telegramId = msg.chat.id;
-//   console.log('inside bot')
-//   fetchUser(telegramId);
-//   fetchUser2();
-
-//   // try {
-//   //     // Check if the user exists in Supabase
-//   //     // Fetch user info from Supabase
-//   //     const { data: user, error } = await supabase
-//   //     .from('User')
-//   //     .select('*')
-//   //     .eq('telegramId', telegramId)
-//   //     .single(); // Use single to fetch a single user
-
-//   //     console.log('Fetched user:', user); // Log the fetched user for debugging
-
-//   //     if (error && error.code !== 'PGRST116') { // 'PGRST116' indicates no rows found
-//   //         console.error('Error fetching user:', error);
-//   //         bot.sendMessage(telegramId, 'An unexpected error occurred. Please try again later.');
-//   //         return;
-//   //     }
-
-//   //     // If no user found, create a new user with 0 coins
-//   //     if (!user || error) {
-//   //       const { data: newUser, error: insertError } = await supabase
-//   //             .from('User')
-//   //             .insert([{ telegramId, coins: 0 }]);
-
-//   //         if (insertError) {
-//   //           console.error('Error inserting new user:', insertError);
-//   //           bot.sendMessage(telegramId, 'There was an error creating your account. Please try again later.');
-//   //           return;
-//   //         }
-
-//   //       // Send welcome message with initial coin balance
-//   //       bot.sendMessage(telegramId, `Welcome! Your current coin balance is ${newUser.coins}.`);
-//   //     } else {
-//   //         // If user exists, show the current coin balance
-//   //         const initialBalance = user.coins;
-//   //         bot.sendMessage(telegramId, `Welcome back! Your current coin balance is ${initialBalance}.`);
-//   //     }
-//   // } catch (error) {
-//   //     console.log('Error handling /start command:', error);
-//   //     bot.sendMessage(telegramId, 'Sorry, something went wrong. Please try again later.');
-//   // }
-// });
-
-bot.onText(/\/start/, async (msg) => {
-    const telegramId = msg.chat.id;
-    
-    // URL of your hosted UI page on Netlify
-    const uiUrl = 'https://YOUR_NETLIFY_URL';
-
-    // Send a message to the user with the link to the UI
-    bot.sendMessage(telegramId, `Welcome! Click the link below to access the UI:\n${uiUrl}`);
+bot.onText(/\/start/, (msg) => {
+    const chatId = msg.chat.id;
+    bot.sendMessage(chatId, 'Welcome to the TapMe Bot! Click the button below to open the app:', {
+        reply_markup: {
+            inline_keyboard: [[
+                {
+                    text: 'Open TapMe',
+                    web_app: { url: 'https://co3-labs-task.vercel.app/' }
+                }
+            ]]
+        }
+    });
 });
 
 // Handle other text messages
