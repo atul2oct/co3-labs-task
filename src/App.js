@@ -6,7 +6,7 @@ import TapButton from './components/TapButton'
 
 const App = () => {
   return (
-    <div className='w-screen min-h-screen bg-richblack-900 flex flex-col font-inter text-white'>
+    <div className='w-screen min-h-screen bg-richblack-900 flex flex-col justify-center items-center font-inter text-white'>
     <TapButton/>
       <Routes>
         {/* <Route path='/' element={<Home/>}/> */}

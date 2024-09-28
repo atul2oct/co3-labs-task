@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const supabase = require('../config/database'); // Import the Supabase client
 
 exports.updateCoin = async (req, res) => {
 
@@ -6,7 +6,14 @@ exports.updateCoin = async (req, res) => {
         // fetch data from request body
         const { telegramId, coins } = req.body;        
 
-        const user = await User.findOneAndUpdate({ telegramId }, { coins }, { new: true, upsert: true });
+        const { user, error } = await supabase
+            .from('User')
+            .update({ coins })
+            .eq('telegramId', telegramId);
+
+        if (error) {
+            throw error;
+        }
 
         // if user already exists, then return a response
         if(!user){

@@ -3,7 +3,7 @@ const app = express();
 
 const coinRouter = require('./routes/Coin');
 
-const database = require('./config/database');
+const supabase = require('./config/database'); // Import the Supabase client
 const cookieParser = require('cookie-parser');
 
 const cors = require('cors'); //front end ki request ko backend entertain kre
@@ -13,17 +13,18 @@ require('dotenv').config();
 
 const PORT = process.env.PORT || 4000;
 
-// database connect
-database.connect();
+const bot = require('./bot'); // Import your bot
+
 
 // middleware
 app.use(express.json());
 app.use(cookieParser());
 
 app.use(
-    cors({//deep dive why credentials:true ?
+    cors({
         origin: "*",
-        credentials:true,            //access-control-allow-credentials:true
+        credentials:true,
+        //access-control-allow-credentials:true
     })
 );
 
