@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 
 const coinRouter = require('./routes/Coin');
+const userRouter = require('./routes/user');
 
 const supabase = require('./config/database'); // Import the Supabase client
 const cookieParser = require('cookie-parser');
@@ -39,6 +40,7 @@ app.use(
 
 // routes
 app.use("/api/v1/coin",coinRouter);
+app.use("/api/v1/user",userRouter);
 
 // default route
 app.get("/",(req,res)=>{

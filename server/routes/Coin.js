@@ -5,7 +5,7 @@ const router = express.Router()
 const { updateCoin } = require("../controllers/updateCoin");
 
 // Route for updating coins
-router.post('/update-coins', updateCoin);
+router.put('/update-coins', updateCoin);
 
 // Export the router for use in the main application
 module.exports = router

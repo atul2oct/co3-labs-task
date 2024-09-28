@@ -10,93 +10,64 @@ const token = "7765796238:AAHgmX8pEFidNqsRl5cvF8N00rklJcrCuro";
 // Create a bot that uses polling to fetch new updates
 const bot = new TelegramBot(token, {polling:true});
 
-async function fetchUser(id) {
-  try {
-    
-      const { data: user, error } = await supabase
-      .from('User')
-      .select()
-      console.log("1------------")
-      if (error) {
-          console.error('Error fetching user:', error);
-          return null;
-      }
-
-      console.log("user",user)
-  } catch (err) {
-      console.error('Fetch failed:', err);
-      return null;
-  }
-}
-async function fetchUser2() {
-  try {
-    
-      const { data: user, error } = await supabase
-      .from('users')
-      .select()
-      console.log("2------------")
-      if (error) {
-          console.error('Error fetching user:', error);
-          return null;
-      }
-
-      console.log("user",user)
-  } catch (err) {
-      console.error('Fetch failed:', err);
-      return null;
-  }
-}
-
-
-
 
 // Handle the '/start' command
+// bot.onText(/\/start/, async (msg) => {
+//   const telegramId = msg.chat.id;
+//   console.log('inside bot')
+//   fetchUser(telegramId);
+//   fetchUser2();
+
+//   // try {
+//   //     // Check if the user exists in Supabase
+//   //     // Fetch user info from Supabase
+//   //     const { data: user, error } = await supabase
+//   //     .from('User')
+//   //     .select('*')
+//   //     .eq('telegramId', telegramId)
+//   //     .single(); // Use single to fetch a single user
+
+//   //     console.log('Fetched user:', user); // Log the fetched user for debugging
+
+//   //     if (error && error.code !== 'PGRST116') { // 'PGRST116' indicates no rows found
+//   //         console.error('Error fetching user:', error);
+//   //         bot.sendMessage(telegramId, 'An unexpected error occurred. Please try again later.');
+//   //         return;
+//   //     }
+
+//   //     // If no user found, create a new user with 0 coins
+//   //     if (!user || error) {
+//   //       const { data: newUser, error: insertError } = await supabase
+//   //             .from('User')
+//   //             .insert([{ telegramId, coins: 0 }]);
+
+//   //         if (insertError) {
+//   //           console.error('Error inserting new user:', insertError);
+//   //           bot.sendMessage(telegramId, 'There was an error creating your account. Please try again later.');
+//   //           return;
+//   //         }
+
+//   //       // Send welcome message with initial coin balance
+//   //       bot.sendMessage(telegramId, `Welcome! Your current coin balance is ${newUser.coins}.`);
+//   //     } else {
+//   //         // If user exists, show the current coin balance
+//   //         const initialBalance = user.coins;
+//   //         bot.sendMessage(telegramId, `Welcome back! Your current coin balance is ${initialBalance}.`);
+//   //     }
+//   // } catch (error) {
+//   //     console.log('Error handling /start command:', error);
+//   //     bot.sendMessage(telegramId, 'Sorry, something went wrong. Please try again later.');
+//   // }
+// });
+
 bot.onText(/\/start/, async (msg) => {
-  const telegramId = msg.chat.id;
-  console.log('inside bot')
-  fetchUser(telegramId);
-  fetchUser2();
+    const telegramId = msg.chat.id;
+    
+    // URL of your hosted UI page on Netlify
+    const uiUrl = 'https://YOUR_NETLIFY_URL';
 
-  // try {
-  //     // Check if the user exists in Supabase
-  //     // Fetch user info from Supabase
-  //     const { data: user, error } = await supabase
-  //     .from('User')
-  //     .select('*')
-  //     .eq('telegramId', telegramId)
-  //     .single(); // Use single to fetch a single user
-
-  //     console.log('Fetched user:', user); // Log the fetched user for debugging
-
-  //     if (error && error.code !== 'PGRST116') { // 'PGRST116' indicates no rows found
-  //         console.error('Error fetching user:', error);
-  //         bot.sendMessage(telegramId, 'An unexpected error occurred. Please try again later.');
-  //         return;
-  //     }
-
-  //     // If no user found, create a new user with 0 coins
-  //     if (!user || error) {
-  //       const { data: newUser, error: insertError } = await supabase
-  //             .from('User')
-  //             .insert([{ telegramId, coins: 0 }]);
-
-  //         if (insertError) {
-  //           console.error('Error inserting new user:', insertError);
-  //           bot.sendMessage(telegramId, 'There was an error creating your account. Please try again later.');
-  //           return;
-  //         }
-
-  //       // Send welcome message with initial coin balance
-  //       bot.sendMessage(telegramId, `Welcome! Your current coin balance is ${newUser.coins}.`);
-  //     } else {
-  //         // If user exists, show the current coin balance
-  //         const initialBalance = user.coins;
-  //         bot.sendMessage(telegramId, `Welcome back! Your current coin balance is ${initialBalance}.`);
-  //     }
-  // } catch (error) {
-  //     console.log('Error handling /start command:', error);
-  //     bot.sendMessage(telegramId, 'Sorry, something went wrong. Please try again later.');
-  // }
+    // Send a message to the user with the link to the UI
+    bot.sendMessage(telegramId, `Welcome! Click the link below to access the UI:\n${uiUrl}`);
 });
 
 // Handle other text messages

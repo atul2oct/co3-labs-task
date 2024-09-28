@@ -23,7 +23,7 @@ exports.getUser = async (req, res) => {
             const { data: newUser, insertError } = await supabase
               .from('User')
               .insert([{ telegramId, coins: 0 }])
-              .single();
+              .select();
 
             if (insertError) {
                 throw insertError;
@@ -31,12 +31,17 @@ exports.getUser = async (req, res) => {
 
             user = newUser;
         }
+
+        console.log('user route')
+
+        console.log("user",user)
     
         // Respond with user info
         res.status(200).json({
             success:true,
             telegramId: user.telegramId,
             coins: user.coins,
+            user,
             message:"fetch coin successfully"
 
         });
